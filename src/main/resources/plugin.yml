@@ -1,0 +1,9 @@
+name: Event
+version: '${project.version}'
+main: com.tienny.event.Main
+api-version: 1.19
+authors: [ tienny ]
+description: Event plugin
+commands:
+  rank:
+  reloadserver:
