@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.permissions.PermissionAttachment;
 
 public class RankListener implements Listener {
 
@@ -24,7 +25,19 @@ public class RankListener implements Listener {
         Player player = event.getPlayer();
 
         if (!player.hasPlayedBefore()) { //Set rank to Player if a player has never played before
-            main.getRankManager().setRank(player.getUniqueId(), Rank.PLAYER);
+            main.getRankManager().setRank(player.getUniqueId(), Rank.PLAYER, true);
+        }
+
+        PermissionAttachment attachment;
+        if (main.getRankManager().getPerms().containsKey(player.getUniqueId())) {
+            attachment = main.getRankManager().getPerms().get(player.getUniqueId());
+        } else {
+            attachment = player.addAttachment(main);
+            main.getRankManager().getPerms().put(player.getUniqueId(), attachment);
+        }
+
+        for (String perm : main.getRankManager().getRank(player.getUniqueId()).getPermissions()) {
+            attachment.setPermission(perm, true);
         }
     }
 

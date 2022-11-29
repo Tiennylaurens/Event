@@ -31,7 +31,7 @@ public class RankCommand implements CommandExecutor {
 
                         for (Rank rank : Rank.values()) { //Check if a correct rank is used
                             if (rank.name().equalsIgnoreCase(args[1])) {
-                                main.getRankManager().setRank(target.getUniqueId(), rank);
+                                main.getRankManager().setRank(target.getUniqueId(), rank, false);
 
                                 if (target.getUniqueId().equals(player.getUniqueId())) { //Check if target is sender
                                     player.sendMessage(ChatColor.GREEN + "You changed your rank to " + rank.getDisplay() + ".");

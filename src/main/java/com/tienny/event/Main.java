@@ -48,7 +48,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
             @Override
             public void run() {
-                Bukkit.broadcastMessage(ChatColor.GOLD + "Server reloaded " + ChatColor.GRAY + "[#" + eventInfoManager.getReloads() + " Event: " + eventInfoManager.getVersion() + "].");
+                Bukkit.broadcastMessage(ChatColor.GOLD + "Server reloaded " + ChatColor.GRAY + "[#" + eventInfoManager.getReloads() + " Event: " + eventInfoManager.getVersion() + "]");
             }
         }, 20L);
     }
