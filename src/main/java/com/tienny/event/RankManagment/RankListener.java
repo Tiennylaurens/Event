@@ -3,7 +3,6 @@ package com.tienny.event.RankManagment;
 import com.tienny.event.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.defaults.ReloadCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,6 +27,7 @@ public class RankListener implements Listener {
             main.getRankManager().setRank(player.getUniqueId(), Rank.PLAYER, true);
         }
 
+        //Set perms for a player that hasn't joined before
         PermissionAttachment attachment;
         if (main.getRankManager().getPerms().containsKey(player.getUniqueId())) {
             attachment = main.getRankManager().getPerms().get(player.getUniqueId());

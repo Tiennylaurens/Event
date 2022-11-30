@@ -1,7 +1,6 @@
 package com.tienny.event.EventInfoManagment;
 
 import com.tienny.event.Main;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -32,7 +31,7 @@ public class EventInfoManager {
 
 
     public void addReload() { //Keep track of the amount of reloads
-        if (!config.contains("reloads")) { //Make a reload entry in the file if it doesn't exist yet
+        if (!config.contains("reloads")) { //Make reload entry in the file if it doesn't exist yet
             config.set("reloads", 1);
         } else {
             config.set("reloads", getReloads() + 1); //Add 1 to the amount of reloads
@@ -49,7 +48,7 @@ public class EventInfoManager {
         return config.getInt("reloads");
     }
 
-    public String getVersion() {
+    public String getVersion() { //Keep track of the version of the event
         if (config.contains("version")) {
             return config.getString("version");
         } else {

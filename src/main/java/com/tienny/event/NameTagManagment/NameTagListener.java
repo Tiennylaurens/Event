@@ -16,7 +16,7 @@ public class NameTagListener implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onJoin(PlayerJoinEvent event) { //Set the name tag of a player on join event
 
         Player player = event.getPlayer();
 
@@ -25,7 +25,7 @@ public class NameTagListener implements Listener {
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
+    public void onQuit(PlayerQuitEvent event) { //Remove player on quit event
 
         Player player = event.getPlayer();
         main.getNameTagManager().removeTag(player);
