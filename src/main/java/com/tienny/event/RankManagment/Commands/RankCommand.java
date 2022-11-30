@@ -1,6 +1,7 @@
-package com.tienny.event.RankManagment;
+package com.tienny.event.RankManagment.Commands;
 
 import com.tienny.event.Main;
+import com.tienny.event.RankManagment.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -47,9 +48,9 @@ public class RankCommand implements CommandExecutor {
                                 return false;
                             }
                         }
-                        player.sendMessage(ChatColor.RED + "You did not specify a valid rank! Options are Staff, Helper & Player.");
+                        player.sendMessage(ChatColor.RED + "You did not specify a valid rank! Options are Owner, Staff, Helper & Player.");
                     } else {
-                        player.sendMessage(ChatColor.RED + "This user has never joined the server before!");
+                        player.sendMessage(ChatColor.RED + "This user doesn't exist!");
                     }
                 } else {
                     player.sendMessage(ChatColor.RED + "Invalid usage! Please use /rank <player> <rank>.");

@@ -41,7 +41,10 @@ public class RankManager {
 
     public void setRank(UUID uuid, Rank rank, boolean firstJoin) { //Set a player's rank
         if(Bukkit.getOfflinePlayer(uuid).isOnline() && !firstJoin) {
+
             Player player = Bukkit.getPlayer(uuid);
+
+            //Set perms for a player that has perms currently
             PermissionAttachment attachment;
             if (perms.containsKey(uuid)) {
                 attachment = perms.get(uuid);
@@ -59,18 +62,22 @@ public class RankManager {
             for (String perm : rank.getPermissions()) {
                 attachment.setPermission(perm, true);
             }
+
+            //Change the team of a player
+            main.getTeamManager().removePlayer(uuid);
+            main.getTeamManager().addPlayer(uuid, rank.getTeam());
+
+            //Update scoreboards
+            main.getScoreBoardManager().removePlayer(player);
+            main.getScoreBoardManager().newPlayer(player);
         }
+
+        //Update ranks file
         config.set(uuid.toString(), rank.name());
         try {
             config.save(file);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        if (Bukkit.getOfflinePlayer(uuid).isOnline()) { //Update scoreboards if the player is online
-            Player player = Bukkit.getPlayer(uuid);
-            main.getNameTagManager().removeTag(player);
-            main.getNameTagManager().newTag(player);
         }
     }
 

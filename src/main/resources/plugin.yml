@@ -7,3 +7,5 @@ description: Event plugin
 commands:
   rank:
   reloadserver:
+  team:
+  resetteams:

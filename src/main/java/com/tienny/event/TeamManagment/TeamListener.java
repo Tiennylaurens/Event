@@ -1,25 +1,24 @@
-package com.tienny.event.RankManagment;
+package com.tienny.event.TeamManagment;
 
 import com.tienny.event.Main;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import com.tienny.event.RankManagment.Rank;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.permissions.PermissionAttachment;
 
-public class RankListener implements Listener {
+public class TeamListener implements Listener {
 
     private Main main;
 
-    public RankListener(Main main) {
+    public TeamListener(Main main) {
         this.main = main;
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onJoin(PlayerJoinEvent event) { //Set the name tag of a player on join event
 
         Player player = event.getPlayer();
 
@@ -27,7 +26,7 @@ public class RankListener implements Listener {
             main.getRankManager().setRank(player.getUniqueId(), Rank.PLAYER, true);
         }
 
-        //Set perms for a player that hasn't joined before
+        //Set all the perms for a player
         PermissionAttachment attachment;
         if (main.getRankManager().getPerms().containsKey(player.getUniqueId())) {
             attachment = main.getRankManager().getPerms().get(player.getUniqueId());
@@ -39,14 +38,20 @@ public class RankListener implements Listener {
         for (String perm : main.getRankManager().getRank(player.getUniqueId()).getPermissions()) {
             attachment.setPermission(perm, true);
         }
+
+        //Add player to team and set their scoreboard
+        if (!main.isEventRunning() || !main.getTeamManager().isPlayerInTeam(player.getUniqueId())) { //Add player to spectator team if they aren't in a team yet
+            main.getTeamManager().setTeamBasedOnRank(player.getUniqueId());
+        }
+
+        main.getScoreBoardManager().setScoreBoard(player);
+        main.getScoreBoardManager().newPlayer(player);
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent event) {
-        event.setCancelled(true); //Cancel normal chat message
+    public void onQuit(PlayerQuitEvent event) { //Remove player on quit event
 
         Player player = event.getPlayer();
-
-        Bukkit.broadcastMessage(main.getRankManager().getRank(player.getUniqueId()).getDisplay() + " " + player.getName() + ": " + ChatColor.WHITE + event.getMessage()); //Broadcast new message
+        main.getScoreBoardManager().removePlayer(player);
     }
 }
