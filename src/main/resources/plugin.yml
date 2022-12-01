@@ -9,3 +9,4 @@ commands:
   reloadserver:
   team:
   resetteams:
+  warp:
